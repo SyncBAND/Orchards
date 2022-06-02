@@ -17,6 +17,13 @@ RUN pip install --use-deprecated=legacy-resolver --no-cache-dir -r requirements.
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV VIRTUAL_ENV $HOME/.local
+ENV VENV_PIP $VIRTUAL_ENV/bin/pip
+ENV PATH $VIRTUAL_ENV/bin:$PATH
+
 RUN adduser --system --group aero
 
 # set work directory
