@@ -37,10 +37,10 @@ Create a file on your desktop called `docker-compose.yml` and paste and save the
         restart: unless-stopped
         volumes:
             - uwsgi_log:/var/log/uwsgi
-            - static_volume:/home/aero/app/orchards/static
+            - static_volume:/home/aero/app/static
         image: tyrofest/orchards:app
         ports:
-            - "9000:80"
+            - "9000:9000"
 
     volumes:
         static_volume:
