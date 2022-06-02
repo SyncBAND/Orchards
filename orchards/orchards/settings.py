@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'aero',
         'USER': 'postgres',
         'PASSWORD': 'aero',
-        'HOST': 'postgres',
+        'HOST': 'localhost',
         'PORT':'5432',
     }
 }

@@ -32,10 +32,10 @@ jobs:
             docker system prune -f
             
             # Stop running container
-            docker-compose stop app
+            # docker-compose stop app
 
             # Remove old container
-            docker-compose rm -f
+            # docker-compose rm -f
 
             # Pull and run a new container from a new image
             docker-compose pull
