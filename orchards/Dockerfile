@@ -21,8 +21,6 @@ ENV PACKAGES="\
 "
 
 # install environment dependencies
-RUN pip install --upgrade pip
-
 ENV PYTHON_PACKAGES="\
     numpy \
     matplotlib \
@@ -40,8 +38,6 @@ ENV PYTHON_PACKAGES="\
     uWSGI \
 " 
 
-RUN addgroup -S aero && adduser -S aero -G aero
-
 RUN apk add --no-cache --virtual build-dependencies python --update py-pip \
     && apk add --virtual build-runtime \
     build-base python-dev openblas-dev freetype-dev pkgconfig gfortran \
@@ -51,6 +47,8 @@ RUN apk add --no-cache --virtual build-dependencies python --update py-pip \
     && apk del build-runtime \
     && apk add --no-cache --virtual build-dependencies $PACKAGES \
     && rm -rf /var/cache/apk/*
+
+RUN addgroup -S aero && adduser -S aero -G aero
 
 # set work directory
 RUN mkdir -p /home/aero/app
