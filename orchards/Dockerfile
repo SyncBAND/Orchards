@@ -9,7 +9,7 @@ ENV PATH="/scripts:${PATH}"
 RUN pip install --upgrade pip
 # packages required for setting up WSGI and scipy
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends build-essential gcc make libc-dev python3-dev musl-dev
+RUN apt-get install -y --no-install-recommends build-essential
 
 COPY requirements.txt $HOME/requirements.txt
 RUN pip install --use-deprecated=legacy-resolver --no-cache-dir -r requirements.txt && \
@@ -49,5 +49,3 @@ RUN chmod +x /wait
 # Copy entrypoint
 COPY entrypoint.sh $HOME/entrypoint.sh
 RUN chmod +x $HOME/entrypoint.sh
-
-CMD /wait 

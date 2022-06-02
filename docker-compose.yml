@@ -3,23 +3,29 @@ version: '3'
 services:
 
     db:
-      container_name: postgres
+      container_name: db
       build: ./postgres
       image: tyrofest/orchards:db  # goes to your repository on Docker Hub
-      networks: # <-- connect to the back end network
-        - backend_network
       volumes:
         - postgres_data:/var/lib/postgresql/data/
+      networks: # <-- connect to the back end network
+        - backend_network
         
     app:
       container_name: app
       build: ./orchards
       image: tyrofest/orchards:app
-      networks: # <-- connect to the back end network - postgres db
-        - backend_network
+      environment:
+        - WAIT_HOSTS=postgres:5432
+      depends_on:  # <-- wait for db to be "ready" before starting the app
+        - db
+      links:
+        - db:db
       volumes:
         - uwsgi_log:/var/log/uwsgi
         - static_volume:/home/aero/app/static
+      networks: # <-- connect to the back end network - postgres db
+        - backend_network
 
 volumes:
     static_volume:
@@ -29,3 +35,4 @@ volumes:
 
 networks:
   backend_network: # <-- connect to the back end db
+    driver: bridge
