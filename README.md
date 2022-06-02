@@ -93,3 +93,15 @@ The script then logs onto the server, does some cleaninng up before pulling the 
 
 The workflow script assumes the server/cloud environment is setup already. That to say, docker is installed and the web server is configured. We can automate the process by using a configuration management tool which is left for you to do :) (I like using Ansible)
 
+## Testing
+
+Create a file called `.env` in the root folder of the project (same level as manage.py file) and add the following
+
+    API_TOKEN = XXXXXXXXXXX
+    ORCHARD_ID = 5
+
+> Replace XXXXXXXX with a valid API_TOKEN and ORCHARD_ID with an orchard id the token has access to
+
+    python manage.py test
+
+

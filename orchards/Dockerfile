@@ -16,9 +16,9 @@ WORKDIR $HOME
 
 # install environment dependencies
 RUN pip install --upgrade pip
-RUN pip install cython
+RUN pip install numpy==1.19.5
 COPY requirements.txt $HOME/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --use-deprecated=legacy-resolver -r requirements.txt
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1

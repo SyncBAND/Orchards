@@ -1,9 +1,11 @@
 Cython
 Django==3.2
 django-constance[database]==2.9.0
-pandas
-plotly
-Shapely
-sklearn
-requests
-uWSGI
+pandas==1.1.5
+plotly==5.8.0
+python-decouple
+scipy==1.2.3
+Shapely==1.8.2
+sklearn==0.0
+requests==2.27.1
+uWSGI==2.0.20
