@@ -18,17 +18,15 @@ ENV PACKAGES="\
     tcl \
     tk \
     libssl1.0 \
-"
+    "
 
-# install environment dependencies
 ENV PYTHON_PACKAGES="\
     numpy \
     matplotlib \
     scipy \
     scikit-learn \
-    pandas \
     nltk \
-    Django \
+    Django==3.2 \
     django-constance[database]==2.9.0 \
     plotly \
     python-decouple \
@@ -36,14 +34,21 @@ ENV PYTHON_PACKAGES="\
     sklearn \
     requests \
     uWSGI \
-" 
+    " 
 
-RUN apk add --no-cache --virtual build-dependencies python --update py-pip \
+RUN apk add --update --no-cache --virtual build-dependencies \
     && apk add --virtual build-runtime \
-    build-base python-dev openblas-dev freetype-dev pkgconfig gfortran \
+    gcc libc-dev linux-headers postgresql-dev python3-dev musl-dev openssl-dev \
+     && apk add libffi-dev build-base python3-dev openblas-dev freetype-dev pkgconfig gfortran \
     && ln -s /usr/include/locale.h /usr/include/xlocale.h \
-    && pip install --upgrade pip \
+    && python3 -m ensurepip \
+    && rm -r /usr/lib/python*/ensurepip \
+    && pip3 install --upgrade pip setuptools \
+    && ln -sf /usr/bin/python3 /usr/bin/python \
+    && ln -sf pip3 /usr/bin/pip \
+    && rm -r /root/.cache \
     && pip install --no-cache-dir $PYTHON_PACKAGES \
+    && pip3 install 'pandas<0.21.0' \
     && apk del build-runtime \
     && apk add --no-cache --virtual build-dependencies $PACKAGES \
     && rm -rf /var/cache/apk/*
