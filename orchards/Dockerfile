@@ -16,7 +16,7 @@ WORKDIR $HOME
 
 # install env dependencies
 RUN pip install --upgrade pip
-COPY ./orchards/requirements.txt $HOME/requirements.txt
+COPY requirements.txt $HOME/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # copy project
