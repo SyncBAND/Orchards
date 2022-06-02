@@ -16,6 +16,7 @@ WORKDIR $HOME
 
 # install environment dependencies
 RUN pip install --upgrade pip
+RUN pip install cython
 COPY requirements.txt $HOME/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
