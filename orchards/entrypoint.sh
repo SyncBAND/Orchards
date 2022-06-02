@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/airbuy/app/airbuy/  
+cd /home/aero/app/orchards/  
 python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --no-input

@@ -30,7 +30,7 @@ ENV PATH $VIRTUAL_ENV/bin:$PATH
 COPY . $HOME
 
 # give aero ownership to static folder
-RUN mkdir -p $HOME/static && chown -R aero:aero $HOME/static
+RUN mkdir -p $HOME/orchards/static && chown -R aero:aero $HOME/orchards/static
 
 # create log file
 RUN mkdir -p /var/log/uwsgi/ && touch /var/log/uwsgi/aero.log && chown aero:aero -R /var/log/uwsgi/
