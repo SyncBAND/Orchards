@@ -1,7 +1,31 @@
 # docker-compose file used in pipeline | builds latest image and pushes 
 version: '3'
 services:
+
+    db:
+      container_name: postgres
+      build: ./postgres
+      image: tyrofest/orchards:db  # goes to your repository on Docker Hub
+      networks: # <-- connect to the back end network
+        - backend_network
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+        
     app:
       container_name: app
       build: ./orchards
       image: tyrofest/orchards:app
+      networks: # <-- connect to the back end network - postgres db
+        - backend_network
+      volumes:
+        - uwsgi_log:/var/log/uwsgi
+        - static_volume:/home/aero/app/static
+
+volumes:
+    static_volume:
+    postgres_data:
+      driver: local
+    uwsgi_log:
+
+networks:
+  backend_network: # <-- connect to the back end db

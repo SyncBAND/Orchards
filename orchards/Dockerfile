@@ -42,6 +42,12 @@ RUN mkdir -p /var/log/uwsgi/ && touch /var/log/uwsgi/aero.log && chown aero:aero
 
 EXPOSE 8005
 
+# wait until postres is ready
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+RUN chmod +x /wait
+
 # Copy entrypoint
 COPY entrypoint.sh $HOME/entrypoint.sh
 RUN chmod +x $HOME/entrypoint.sh
+
+CMD /wait 

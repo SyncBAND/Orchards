@@ -11,8 +11,7 @@ syntax: glob
 *.log
 *.json
 !**/fixtures/*.json
-*.sql
-db.sqlite3
+*.sqlite3
 
 .DS_Store
 static/

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_v_!+#2tqjnbbtm3vb)0fj#%hql=g88nlnd)%50(wg-7(@ru-^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,10 +80,15 @@ WSGI_APPLICATION = 'orchards.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'aero',
+        'USER': 'postgres',
+        'PASSWORD': 'aero',
+        'HOST': 'postgres',
+        'PORT':'5432',
     }
 }
 

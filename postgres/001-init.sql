@@ -1,0 +1,3 @@
+ALTER USER postgres WITH PASSWORD 'aero';
+SELECT 'CREATE DATABASE aero OWNER postgres' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'aero')\gexec
+GRANT ALL PRIVILEGES ON DATABASE aero TO postgres;
