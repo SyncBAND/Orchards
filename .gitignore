@@ -1,0 +1,25 @@
+syntax: glob
+
+*.pyc
+*.py~
+*.skrt
+*.csv
+*.tar.gz
+*.bz2
+*.tar
+.coverage
+*.log
+*.json
+!**/fixtures/*.json
+*.sql
+
+.DS_Store
+static/
+
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+.env
+
+__pycache__/

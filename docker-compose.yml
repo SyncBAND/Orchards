@@ -1,0 +1,7 @@
+# docker-compose file used in pipeline | builds latest image and pushes 
+version: '3'
+services:
+    app:
+      container_name: app
+      build: ./orchards
+      image: tyrofest/orchards:app

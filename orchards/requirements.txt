@@ -1,0 +1,8 @@
+Django==3.2
+django-constance[database]==2.9.0
+pandas==1.4.2
+plotly==5.8.0
+Shapely==1.8.2
+sklearn==0.0
+requests==2.27.1
+uWSGI

@@ -1,0 +1,43 @@
+# .github/deploy.yaml
+
+name: Deploy
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout into repo, build and push docker image
+        uses: actions/checkout@v2
+      - name: Build image
+        run: |
+          docker login -u tyrofest -p ${{ secrets.DOCKERHUB_PASS }}
+          docker-compose build
+          docker-compose push
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with: 
+          host: ${{ secrets.ORCHARDS_HOST }} 
+          username: ${{ secrets.ORCHARDS_USERNAME }}
+          password: ${{ secrets.ORCHARDS_PASSWORD }}
+          script: |
+            cd /home/aero/compose
+            docker login -u tyrofest -p ${{ secrets.DOCKERHUB_PASS }} 
+
+            docker system prune -f
+            
+            # Stop running container
+            docker-compose stop app
+
+            # Remove old container
+            docker-compose rm -f
+
+            # Pull and run a new container from a new image
+            docker-compose pull
+            docker-compose up -d
+
