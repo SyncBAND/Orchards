@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.9.6-alpine
+FROM python:3.8.2-alpine
 
 RUN addgroup -S aero && adduser -S aero -G aero
 
