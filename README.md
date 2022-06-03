@@ -29,22 +29,59 @@ Pull the image
 
 Create a file on your desktop called `docker-compose.yml` and paste and save the following
 
+    # docker-compose file used on server/cloud | runs image
     version: '3'
     services:
+
+        db:
+        container_name: postgres
+        restart: unless-stopped
+        ports:
+            - "5433:5432"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=aero
+            - POSTGRES_DB=aero
+        image: tyrofest/orchards:db  # goes to your repository on Docker Hub
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/ # persist data even if container shuts down
+        # needed because the postgres container does not provide a healthcheck
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+        networks: # <-- connect to the back end network
+            - backend_network
+            
         app:
         container_name: app
         command: sh -c "/home/aero/app/entrypoint.sh"
         restart: unless-stopped
+        environment:
+            - WAIT_HOSTS=postgres:5432
+        depends_on:  # <-- wait for db to be "ready" before starting the app
+            - db
+        links:
+            - db:db
         volumes:
             - uwsgi_log:/var/log/uwsgi
             - static_volume:/home/aero/app/static
         image: tyrofest/orchards:app
         ports:
-            - "9000:9000"
+            - "8005:8005"
+        networks: # <-- connect to the back end network
+            - backend_network
 
     volumes:
         static_volume:
+        postgres_data:
+        driver: local
         uwsgi_log:
+
+    networks:
+    backend_network: # <-- connect to the back end db
+        driver: bridge
 
 > you can change the ports 
 
@@ -54,7 +91,7 @@ Open your terminal and change directory to your desktop or where you saved the f
 
 Go to your browser and paste the url
 
-    http://localhost:9000/
+    http://localhost:8005/
 
 
 ## Alternatively, create a virtual env 

@@ -5,10 +5,13 @@ FROM python:3.8-slim-buster
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="/scripts:${PATH}"
+ENV VIRTUAL_ENV $HOME/.local
+ENV VENV_PIP $VIRTUAL_ENV/bin/pip
+ENV PATH $VIRTUAL_ENV/bin:$PATH
 
 RUN pip install --upgrade pip
-# packages required for setting up WSGI and scipy
 RUN apt-get update
+# packages required for setting up WSGI and scipy
 RUN apt-get install -y --no-install-recommends build-essential
 
 COPY requirements.txt $HOME/requirements.txt
@@ -16,13 +19,6 @@ RUN pip install --use-deprecated=legacy-resolver --no-cache-dir -r requirements.
     apt-get remove -y --purge make gcc build-essential \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
-
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV VIRTUAL_ENV $HOME/.local
-ENV VENV_PIP $VIRTUAL_ENV/bin/pip
-ENV PATH $VIRTUAL_ENV/bin:$PATH
 
 RUN adduser --system --group aero
 
