@@ -24,9 +24,9 @@ jobs:
         with: 
           host: ${{ secrets.ORCHARDS_HOST }} 
           username: ${{ secrets.ORCHARDS_USERNAME }}
-          password: ${{ secrets.ORCHARDS_PASSWORD }}
+          key: ${{ secrets.ORCHARDS_KEY }}
           script: |
-            cd /home/aero/compose
+            cd ~/compose
             docker login -u tyrofest -p ${{ secrets.DOCKERHUB_PASS }} 
             
             # Pull and run a new container from a new image
