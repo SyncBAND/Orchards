@@ -8,8 +8,6 @@ services:
       image: tyrofest/orchards:db  # goes to your repository on Docker Hub
       volumes:
         - postgres_data:/var/lib/postgresql/data/
-      networks: # <-- connect to the back end network
-        - backend_network
         
     app:
       container_name: app
@@ -22,14 +20,8 @@ services:
       volumes:
         - uwsgi_log:/var/log/uwsgi
         - static_volume:/home/aero/app/static
-      networks: # <-- connect to the back end network - postgres db
-        - backend_network
 
 volumes:
     static_volume:
     postgres_data:
     uwsgi_log:
-
-networks:
-  backend_network: # <-- connect to the back end db
-    driver: bridge
