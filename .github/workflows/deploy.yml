@@ -30,8 +30,8 @@ jobs:
             docker login -u tyrofest -p ${{ secrets.DOCKERHUB_PASS }} 
             
             # Pull and run a new container from a new image
-            docker compose pull
+            docker-compose pull
             # Stop running container
-            docker compose down
-            docker compose up -d
+            docker-compose down
+            docker-compose up -d
 
