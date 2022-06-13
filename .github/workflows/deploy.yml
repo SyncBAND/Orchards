@@ -16,8 +16,8 @@ jobs:
       - name: Build image
         run: |
           docker login -u tyrofest -p ${{ secrets.DOCKERHUB_PASS }}
-          docker-compose build
-          docker-compose push
+          docker compose build
+          docker compose push
 
       - name: Deploy
         uses: appleboy/ssh-action@master
@@ -28,16 +28,10 @@ jobs:
           script: |
             cd /home/aero/compose
             docker login -u tyrofest -p ${{ secrets.DOCKERHUB_PASS }} 
-
-            docker system prune -f
             
-            # Stop running container
-            # docker-compose stop app
-
-            # Remove old container
-            # docker-compose rm -f
-
             # Pull and run a new container from a new image
-            docker-compose pull
-            docker-compose up -d
+            docker compose pull
+            # Stop running container
+            docker compose down
+            docker compose up -d
 

@@ -19,8 +19,6 @@ services:
         - WAIT_HOSTS=postgres:5432
       depends_on:  # <-- wait for db to be "ready" before starting the app
         - db
-      links:
-        - db:db
       volumes:
         - uwsgi_log:/var/log/uwsgi
         - static_volume:/home/aero/app/static
@@ -30,7 +28,6 @@ services:
 volumes:
     static_volume:
     postgres_data:
-      driver: local
     uwsgi_log:
 
 networks:
