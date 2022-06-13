@@ -6,17 +6,11 @@ Project for farmers to view and analyze data.
 
 Use the link below to get a list of (potentially) missing trees in an orchard
 
-    https://aerobotics.metsiapp.co.za/orchards/{orchard_id}/missing-trees/
+    http://13.245.3.209/orchards/{orchard_id}/missing-trees/
 
 given an {orchard_id} you have access to. For example
     
-    https://aerobotics.metsiapp.co.za/orchards/216269/missing-trees/
-
-For fun, you can plot your initial data set by using the link below to have a sense of where the missing trees could be
-
-    https://aerobotics.metsiapp.co.za/orchards/216269/missing-trees/?draw
-
-> Note: you'll have to zoom into the map to see more
+    http://13.245.3.209/orchards/216269/missing-trees/
 
 
 # Local Setup 
@@ -135,7 +129,6 @@ The workflow script assumes the server/cloud environment is setup already. That 
 Create a file called `.env` in the root folder of the project (same level as manage.py file) and add the following
 
     API_TOKEN = XXXXXXXXXXX
-    ORCHARD_ID = 5
 
 > Replace XXXXXXXX with a valid API_TOKEN and ORCHARD_ID with an orchard id the token has access to
 
